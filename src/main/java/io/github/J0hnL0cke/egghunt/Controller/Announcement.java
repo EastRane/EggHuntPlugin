@@ -20,12 +20,12 @@ import io.github.J0hnL0cke.egghunt.Model.LogHandler;
 public class Announcement {
 
     private static final String PREFIX_FORMAT_CODE = ChatColor.COLOR_CHAR+"l"; //bold
-    private static final ChatColor PREFIX_COLOR = ChatColor.DARK_PURPLE;
+    private static final ChatColor PREFIX_COLOR = ChatColor.LIGHT_PURPLE;
     private static final ChatColor LOCATION_COLOR = ChatColor.GREEN;
     private static final ChatColor CORRECT_COLOR = ChatColor.DARK_GREEN;
     private static final ChatColor INCORRECT_COLOR = ChatColor.RED;
     private static final ChatColor RESET_CODE = ChatColor.RESET;
-    private static final String RAW_MESSAGE_PREFIX = "[Egg Hunt] ";
+    private static final String RAW_MESSAGE_PREFIX = "[EggHunt] ";
 
     public static void sendMessage(Player p, String message) {
         p.sendMessage(formatMessage(message));
@@ -47,26 +47,26 @@ public class Announcement {
         if (sameWorld) {
             double distance = destination.distance(origin);
             if (!Double.isNaN(distance)) {
-                distanceStr = String.format(" (%d blocks away)", (int)distance);
+                distanceStr = String.format(" (в %d блоках от вас)", (int)distance);
             }
         }
 
         String loc = String.format("[%d, %d, %d]", x, y, z);
         
-        return String.format("%s%s%s in %s%s", LOCATION_COLOR, loc, RESET_CODE, worldName, distanceStr);
+        return String.format("%s%s%s в %s%s", LOCATION_COLOR, loc, RESET_CODE, worldName, distanceStr);
     }
     
     public static String formatWorld(World world, boolean correctWorld) {
         String worldName;
         switch (world.getEnvironment()) {
             case NORMAL:
-                worldName = "The Overworld";
+                worldName = "Верхний мир";
                 break;
             case THE_END:
-                worldName = "The End";
+                worldName = "Край";
                 break;
             case NETHER:
-                worldName = "The Nether";
+                worldName = "Незер";
                 break;
             case CUSTOM:
             default:

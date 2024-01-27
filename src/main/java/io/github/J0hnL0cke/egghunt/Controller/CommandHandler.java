@@ -16,7 +16,7 @@ import io.github.J0hnL0cke.egghunt.Model.Data.Egg_Storage_Type;
 
 public class CommandHandler {
 
-    private static final String NOT_PERMITTED_MSG = "Insufficient permission";
+    private static final String NOT_PERMITTED_MSG = "У вас нет прав на использование этой команды.";
 
     private Data data;
 
@@ -39,7 +39,7 @@ public class CommandHandler {
     private boolean locateEgg(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender.hasPermission("egghunt.locateegg")) {
 
-            final String msgStart = "The dragon egg";
+            final String msgStart = "Яйцо дракона";
 
             String storageMsg = data.getEggHolderString(); //"is in <x>"
 
@@ -50,7 +50,7 @@ public class CommandHandler {
                 }
 
                 String locStr = Announcement.formatLocation(data.getEggLocation(), origin);
-                sendMessage(sender, String.format("%s %s at %s.", msgStart, storageMsg, locStr));
+                sendMessage(sender, String.format("%s %s %s.", msgStart, storageMsg, locStr));
             } else {
                 sendMessage(sender, String.format("%s %s.", msgStart, storageMsg));
             }
@@ -79,15 +79,12 @@ public class CommandHandler {
                             compassMeta.setLodestoneTracked(false);
                             compassMeta.setLodestone(eggLoc);
                             heldItem.setItemMeta(compassMeta);
-                            sendMessage(sender, "Tracking last known dragon egg position.");
-                        } else {
-                            sendMessage(sender, String.format("Not in the same dimension as the egg. The egg is in %s.", Announcement.formatWorld(eggLoc.getWorld(), false)));
                         }
                     } else {
-                        sendMessage(sender, "The dragon egg does not exist.");
+                        sendMessage(sender, "Яйцо дракона не существует.");
                     }
                 } else {
-                    sendMessage(sender, "You must be holding a compass to use this command, use /locateegg instead.");
+                    sendMessage(sender, "Вам необходимо держать компас, чтобы воспользоваться этой командой.");
                 }
             } else {
                 sendMessage(sender, NOT_PERMITTED_MSG);
@@ -99,9 +96,9 @@ public class CommandHandler {
     private boolean getOwner(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender.hasPermission("egghunt.eggowner")) {
             if (data.getEggOwner() == null) {
-                sendMessage(sender, "The dragon egg has not been claimed.");
+                sendMessage(sender, "Яйцом никто не владеет.");
             } else {
-                sendMessage(sender, String.format("The dragon egg belongs to %s.", data.getEggOwner().getName()));
+                sendMessage(sender, String.format("Владельцем яйца дракона является %s.", data.getEggOwner().getName()));
             }
         } else {
             sendMessage(sender, NOT_PERMITTED_MSG);

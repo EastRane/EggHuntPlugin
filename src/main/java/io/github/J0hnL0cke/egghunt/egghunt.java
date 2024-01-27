@@ -84,7 +84,7 @@ public final class egghunt extends JavaPlugin {
                     Player p = (Player) eggHolder;
                     EggController.dropEgg(p, data, config);
                     //in case the server isn't restarting, let the player know what happend
-                    Announcement.sendMessage(p, "The dragon egg was dropped from your inventory");
+                    Announcement.sendMessage(p, "Яйцо дракона выпало из вашего инвентаря");
                 }
             }
             logger.log("Saving data...");

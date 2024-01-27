@@ -43,16 +43,16 @@ public class EggController {
             if (config.getRespawnImmediately()) {
                 logger.log("Immediate respawn enabled- respawning egg");
                 respawnEgg(config, data, logger);
-                msg = "The dragon egg was destroyed and has respawned in The End!";
+                msg = "Яйцо дракона было уничтожено, потому возродилось в Краю!";
                 if (oldOwner != null) { //prevent spamming of egg destruction
                 }
             } else {
                 logger.log("Immediate respawn disabled- egg will respawn after next dragon fight");
-                msg = "The dragon egg has been destroyed! It will respawn the next time the Ender Dragon is defeated.";
+                msg = "Яйцо дракона было уничтожено! Оно возродится со следующей смертью Эндер-дракона.";
             }
         } else {
             logger.log("Egg respawn is disabled");
-            msg = "The dragon egg has been destroyed!";
+            msg = "Яйцо дракона было уничтожено!";
 
         }
         

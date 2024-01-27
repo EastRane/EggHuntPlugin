@@ -257,10 +257,10 @@ public class Data {
             if (oldOwner != null) {
                 EggController.updateOwnerTag(Bukkit.getPlayer(oldOwner), this, config);
                 String oldOwnerName = Bukkit.getOfflinePlayer(oldOwner).getName();
-                msg = String.format("%s has stolen the dragon egg from %s!", ownerName, oldOwnerName);
+                msg = String.format("%s украл яйцо дракона у %s!", ownerName, oldOwnerName);
 
             } else {
-                msg = String.format("%s has claimed the dragon egg!", ownerName);
+                msg = String.format("%s стал новым владельцем яйца дракона!", ownerName);
             }
 
             Announcement.announce(msg, logger);
@@ -279,7 +279,7 @@ public class Data {
             Player oldOwner = Bukkit.getPlayer(owner);
             if (announce) { //TODO move announcements somewhere else?
                 String ownerName = Bukkit.getOfflinePlayer(owner).getName();
-                Announcement.announce(String.format("%s no longer owns the dragon egg", ownerName), logger);
+                Announcement.announce(String.format("%s больше не владеет яйцом дракона", ownerName), logger);
             }
 
             log("Egg owner reset");
@@ -352,7 +352,7 @@ public class Data {
         String storageMsg;
 
         if (type == Egg_Storage_Type.DNE) { //egg does not exist
-            storageMsg = "does not exist";
+            storageMsg = "не существует";
 
         } else { //egg exists
 
@@ -360,11 +360,11 @@ public class Data {
                 Block eggBlock = getEggBlock();
 
                 if (Egg.isOnlyEgg(eggBlock)) { //egg is an egg block
-                    storageMsg = "is a block";
+                    storageMsg = "блок";
 
                 } else { //egg is in a block
                     //inside a container, so provide the name of the container
-                    storageMsg = String.format("is inside of a(n) %s", eggBlock.getType().toString());
+                    storageMsg = String.format("внутри %s", eggBlock.getType().toString());
                 }
 
             } else { //egg is in an entity
@@ -373,34 +373,34 @@ public class Data {
 
                 switch (eggEntity.getType()) {
                     case PLAYER:
-                        storageMsg = String.format("is in the inventory of %s", entity.getName());
+                        storageMsg = String.format("в инвентаре игрока %s", entity.getName());
                         break;
 
                     case FALLING_BLOCK:
-                        storageMsg = String.format("is a falling block");
+                        storageMsg = String.format("падает");
                         break;
 
                     case DROPPED_ITEM:
-                        storageMsg = String.format("is a dropped item");
+                        storageMsg = String.format("лежит на земле");
                         break;
 
                     case ITEM_FRAME:
                     case GLOW_ITEM_FRAME:
-                        storageMsg = String.format("is an item frame");
+                        storageMsg = String.format("в рамке");
                         break;
 
                     case ARMOR_STAND:
-                        storageMsg = String.format("is held by an armor stand");
+                        storageMsg = String.format("в стойке для брони");
                         break;
 
                     default:
                         //stored in the inventory of a non-player entity (zombie, hopper minecart, etc)
                         if (entity.getCustomName() != null) {
-                            storageMsg = String.format("is held by a(n) %s named \"%s\"",
+                            storageMsg = String.format("в руках у %s с именем \"%s\"",
                                     entity.getType().toString(),
                                     entity.getName());
                         } else {
-                            storageMsg = String.format("is held by a(n) %s", entity.getType().toString());
+                            storageMsg = String.format("в руках у %s", entity.getType().toString());
                         }
                 }
             }

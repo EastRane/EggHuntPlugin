@@ -173,7 +173,7 @@ public class MiscListener implements Listener {
 
             if (config.resetOwnerOnTeleport()) {
                 if (data.getEggOwner() != null) {
-                    announce(String.format("The dragon egg has teleported. %s is no longer the owner.", data.getEggOwner().getName()));
+                    announce(String.format("Яйцо дракона было телепортировано. %s больше не его владелец.", data.getEggOwner().getName()));
                     data.resetEggOwner(false, config);
                 }
             }

@@ -1,8 +1,3 @@
-*.classpath
-*.project
-*.prefs
-/.settings/
 /target/
-.externalToolBuilders/Make Jar.launch
-/.vscode/
-.vscode/settings.json
+EggHunt.iml
+/.idea/

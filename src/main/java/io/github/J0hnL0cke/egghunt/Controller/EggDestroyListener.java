@@ -109,7 +109,7 @@ public class EggDestroyListener implements Listener {
                     if (config.getEndWorld().getEnderDragonBattle().hasBeenPreviouslyKilled()) {
                         //if the dragon has already been beaten
                         EggController.respawnEgg(config, data, logger);
-                        Announcement.announce("The dragon egg has spawned in the end!", logger);
+                        Announcement.announce("Яйцо дракона возродилось в Краю!", logger);
     				}
     			}
     		}

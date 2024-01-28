@@ -3,6 +3,8 @@ package io.github.J0hnL0cke.egghunt.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.papermc.paper.event.world.border.WorldBorderBoundsChangeFinishEvent;
+import org.bukkit.Location;
 import org.bukkit.TreeType;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -46,6 +48,23 @@ public class EggDestroyListener implements Listener {
         this.logger = logger;
         this.config = config;
         this.data = data;
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true) // eastrane если яйцо за барьером - пора генерировать новое в краю
+    public void onWorldBorderChangeFinishEvent(WorldBorderBoundsChangeFinishEvent event) {
+        double xMin = -event.getNewSize() / 2;
+        double xMax = event.getNewSize() / 2;
+        double zMin = -event.getNewSize() / 2;
+        double zMax = event.getNewSize() / 2;
+        if (data.getEggType() != Data.Egg_Storage_Type.DNE) {
+            Location eggLoc = data.getEggLocation();
+            double x = eggLoc.getX();
+            double z = eggLoc.getZ();
+            if (x < xMin || x > xMax || z < zMin || z > zMax) {
+                Announcement.announce("Яйцо дракона находится за границей мира!", logger);
+                EggController.eggDestroyed(config, data, logger); // хорошо бы, конечно, старое яйцо убивать, но хз надо ли, игрок всё равно не проберётся за барьер
+            }
+        }
     }
 
     /**
@@ -93,13 +112,16 @@ public class EggDestroyListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEntityDeath(EntityDeathEvent event) {
         //if the egg item dies, notify that it has been destroyed
-        if (event.getEntityType().equals(EntityType.DROPPED_ITEM)) {
-            if (Egg.hasEgg((ItemStack) event.getEntity())) {
-                //remove just in case to prevent dupes
-                event.getEntity().remove();
+        Entity entity = event.getEntity(); // eastrane правки из-за перехода на paper
+        if (entity instanceof Item) {
+            ItemStack itemStack = ((Item) entity).getItemStack();
+            if (Egg.hasEgg(itemStack)) {
+                // Remove just in case to prevent dupes
+                entity.remove();
                 EggController.eggDestroyed(config, data, logger);
             }
         }
+
 
         else if (event.getEntityType().equals(EntityType.ENDER_DRAGON)) {
             //if the dragon is killed, respawn the egg

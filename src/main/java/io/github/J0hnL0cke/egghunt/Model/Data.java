@@ -360,7 +360,7 @@ public class Data {
                 Block eggBlock = getEggBlock();
 
                 if (Egg.isOnlyEgg(eggBlock)) { //egg is an egg block
-                    storageMsg = "блок";
+                    storageMsg = "в виде блока";
 
                 } else { //egg is in a block
                     //inside a container, so provide the name of the container

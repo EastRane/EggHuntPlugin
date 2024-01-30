@@ -4,13 +4,10 @@ import java.time.temporal.ChronoUnit;
 import java.time.Instant;
 import java.util.Objects;
 
-import io.github.J0hnL0cke.egghunt.Persistence.DataFileDAO;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.scoreboard.Criteria;
-import org.bukkit.scoreboard.Criterias;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.RenderType;
 import org.bukkit.scoreboard.Score;

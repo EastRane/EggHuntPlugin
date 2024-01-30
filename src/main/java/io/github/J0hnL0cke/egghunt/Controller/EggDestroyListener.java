@@ -62,7 +62,7 @@ public class EggDestroyListener implements Listener {
             double z = eggLoc.getZ();
             if (x < xMin || x > xMax || z < zMin || z > zMax) {
                 Announcement.announce("Яйцо дракона находится за границей мира!", logger);
-                EggController.eggDestroyed(config, data, logger); // хорошо бы, конечно, старое яйцо убивать, но хз надо ли, игрок всё равно не проберётся за барьер
+                EggController.eggDestroyed(config, data, logger); // eastrane хорошо бы, конечно, старое яйцо убивать, но хз надо ли, игрок всё равно не проберётся за барьер
             }
         }
     }

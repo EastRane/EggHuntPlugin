@@ -1,9 +1,7 @@
 package io.github.J0hnL0cke.egghunt.Controller;
 
 
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Container;
 import org.bukkit.block.DoubleChest;
 import org.bukkit.entity.Entity;
@@ -30,6 +28,8 @@ import io.github.J0hnL0cke.egghunt.Model.Configuration;
 import io.github.J0hnL0cke.egghunt.Model.Data;
 import io.github.J0hnL0cke.egghunt.Model.Egg;
 import io.github.J0hnL0cke.egghunt.Model.LogHandler;
+
+import java.util.Objects;
 
 /**
  * Listens for Bukkit events related to inventories
@@ -75,6 +75,12 @@ public class InventoryListener implements Listener {
             if (event.getEntity() instanceof Player) {
                 data.setEggOwner((Player) event.getEntity(), config);
             }
+        if (Objects.equals(data.getIsFirstOwnerDefined(), "false")) {
+            for (World world : Bukkit.getWorlds()) {
+                world.save();
+            }
+            logger.warning("Worlds saved for setting 0 to first owner");
+        }
         }
     }
     

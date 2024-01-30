@@ -38,6 +38,7 @@ public class Data {
     private Block block;
     private Entity entity;
     private UUID entityFallback;
+    private String isFirstOwnerDefined;
 
     private static final String BUG_STR = "THIS MAY BE A BUG! Please report it at https://github.com/HyperSMP/EggHuntPlugin/issues";
    
@@ -56,6 +57,13 @@ public class Data {
         } else if (storedAs == Egg_Storage_Type.ENTITY) {
             return entity.getLocation();
         }
+        return null;
+    }
+    public String getIsFirstOwnerDefined() {
+        return dataDao.read("isFirstOwnerDefined", String.class, "false");
+    }
+    public String setIsFirstOwnerDefined(String isFirstOwnerDefined) {
+        this.isFirstOwnerDefined = isFirstOwnerDefined;
         return null;
     }
 
@@ -209,6 +217,8 @@ public class Data {
         entity = deserializeEntity(entityFallback, approxLocation);
         String storageString = dataDao.read("storedAs", String.class, null);
 
+        isFirstOwnerDefined = dataDao.read("isFirstOwnerDefined", String.class, "false");
+
         if (storageString == null) {
             logger.warning("Could not correctly load egg location data! Was this plugin's data folder deleted?\n" +
                     "If this is the first time this plugin has run, it is safe to ignore this warning.");
@@ -236,6 +246,7 @@ public class Data {
 
         //save timestamp
         dataDao.writeString("writeTime", LocalDateTime.now().toString());
+        dataDao.writeString("isFirstOwnerDefined", isFirstOwnerDefined);
 
         //write to file
         dataDao.save();

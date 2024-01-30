@@ -2,8 +2,12 @@ package io.github.J0hnL0cke.egghunt.Controller;
 
 import java.time.temporal.ChronoUnit;
 import java.time.Instant;
+import java.util.Objects;
+
+import io.github.J0hnL0cke.egghunt.Persistence.DataFileDAO;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.Criterias;
@@ -70,7 +74,6 @@ public class ScoreboardController {
 
         eggSeconds = getOrMakeObjective(EGG_SECONDS_KEY, "Seconds owning egg");
         eggMinutes = getOrMakeObjective(EGG_MINUTES_KEY, "Minutes owning egg");
-
         lastUpdate = Instant.now();
     }
 
@@ -122,6 +125,15 @@ public class ScoreboardController {
         setScore(entityName, eggMinutes, mins); //update eggMinutes
 
         lastUpdate = newUpdate; //update lastUpdate time
+
+        // eastrane Если в data.yml установлено false, то обнуляем значения игрока и записываем true. Теперь там будет вечное true
+        if(Objects.equals(data.getIsFirstOwnerDefined(), "false")) {
+            logger.warning("First owner! Set score 0 to " + entityName);
+            setScore(entityName, eggSeconds, 0);
+            setScore(entityName, eggMinutes, 0);
+            data.setIsFirstOwnerDefined("true");
+            //isFirstOwner = false;
+        }
     }
 
     public Objective getOrMakeObjective(String key, String displayName) {

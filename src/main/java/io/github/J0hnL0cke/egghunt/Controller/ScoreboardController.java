@@ -5,14 +5,10 @@ import java.time.Instant;
 import java.util.Objects;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
-import org.bukkit.scoreboard.Criteria;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.RenderType;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.*;
 
 import io.github.J0hnL0cke.egghunt.Model.Configuration;
 import io.github.J0hnL0cke.egghunt.Model.Data;
@@ -129,7 +125,9 @@ public class ScoreboardController {
             setScore(entityName, eggSeconds, 0);
             setScore(entityName, eggMinutes, 0);
             data.setIsFirstOwnerDefined("true");
-            //isFirstOwner = false;
+            eggSeconds.setDisplaySlot(DisplaySlot.SIDEBAR);
+            eggSeconds.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Владение яйцом (сек)");
+            logger.log("Enabled sidebar display");
         }
     }
 
